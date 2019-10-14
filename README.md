@@ -64,22 +64,23 @@ There are many client libraries available. Some are up to date, others may not b
 ```
 $ pip3 install iroha
 ```
-2. To get the feel of it clone the official repository
+2. To get the feel of it clone the official repository https://github.com/hyperledger/iroha-python
 ```
-git clone https://github.com/hyperledger/iroha-python
+git clone https://github.com/hyperledger/iroha-python.git
 ```
-  and play with eamples; 
-  However, for our demo we will use modified scripts from the ```./client/irohapy``` folder of this repo. More on this further down.
+and play with eamples; 
+However, for our demo we will use modified scripts from the ```./client/irohapy``` folder of this repo. More on this further down.
 
 
-### Monitoring Iroha bu means of the Hyperledger Explorer
+### Monitoring Iroha by means of the Hyperledger Explorer
 #### Prerequisites: Node.js, npm/yarn
 [not today, folks]
-Anyway, the code is available at
+Anyway, the code is available at https://github.com/turuslan/iroha-explorer-backend.
+Run
 ```
 $ git clone https://github.com/turuslan/iroha-explorer-backend.git
 ```
-Instructions on how to build are in README. However, there are a few things to note.
+and follow instructions on how to build are in README.md. It's not too straightforward though (especially as far as the frontned part is concerned), and there are a few things to note.
 
 
 ### Back to the point
@@ -98,11 +99,7 @@ N.B.: in the latter case make sure the docker volumes with the old block stores 
 ```
 git clone https://github.com/soramitsu/tic-tac-toe-player-client.git
 ```
-The latter, in turn, makes use of the ```Iroha-helpers``` JS library which does all communictaion with Iroha:
-```
-https://github.com/soramitsu/iroha-helpers
-```
-The description in the repo gives the idea of how commands and queries can be executed.
+The latter, in turn, makes use of the ```Iroha-helpers``` JS library (https://github.com/soramitsu/iroha-helpers) which takes care of all communictaion with Iroha. The description in the repo gives the idea of how commands and queries can be executed.
 
 ! Compare with python client. Which one is more user-friendly?
 
