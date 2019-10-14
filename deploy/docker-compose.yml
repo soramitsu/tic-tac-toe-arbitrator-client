@@ -1,0 +1,114 @@
+version: '3.5'
+
+services:
+  iroha-peer-0:
+    image: hyperledger/iroha:1.1.0
+    container_name: iroha-0
+    expose:
+      - 10001
+    ports:
+      - 50051:50051
+    environment:
+      - "KEY=iroha-0:10001"
+      - "IROHA_POSTGRES_HOST=iroha-postgres"
+    volumes:
+      - iroha_0_block_store:/tmp/block_store
+      - ./conf/iroha_0:/opt/iroha_data
+    depends_on:
+      - iroha-postgres
+    networks:
+      - iroha-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+    restart: always
+
+  iroha-peer-1:
+    image: hyperledger/iroha:1.1.0
+    container_name: iroha-1
+    expose:
+      - 10001
+    ports:
+      - 50052:50051
+    environment:
+      - "KEY=iroha-1:10001"
+      - "IROHA_POSTGRES_HOST=iroha-postgres"
+    volumes:
+      - iroha_1_block_store:/tmp/block_store
+      - ./conf/iroha_1:/opt/iroha_data
+    depends_on:
+      - iroha-postgres
+    networks:
+      - iroha-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+    restart: always
+
+  iroha-peer-2:
+    image: hyperledger/iroha:1.1.0
+    container_name: iroha-2
+    expose:
+      - 10001
+    ports:
+      - 50053:50051
+    environment:
+      - "KEY=iroha-2:10001"
+      - "IROHA_POSTGRES_HOST=iroha-postgres"
+    volumes:
+      - iroha_2_block_store:/tmp/block_store
+      - ./conf/iroha_2:/opt/iroha_data
+    depends_on:
+      - iroha-postgres
+    networks:
+      - iroha-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+    restart: always
+
+  iroha-postgres:
+    image: postgres:9.5
+    container_name: iroha-postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - storage-postgres:/var/lib/postgresql/data
+    networks:
+      - iroha-net
+    restart: always
+    command: -c max_prepared_transactions=100
+
+  grpc-web-proxy:
+    image: jfyne/docker-grpcwebproxy
+    container_name: grpc-web-proxy
+    depends_on:
+      - iroha-peer-0
+    entrypoint:
+      - /grpcwebproxy
+      - --backend_addr=iroha-0:50051
+      - --run_tls_server=false
+    networks:
+      - iroha-net
+    ports:
+      - 8081:8080
+    restart: always
+
+volumes:
+  iroha_0_block_store:
+  iroha_1_block_store:
+  iroha_2_block_store:
+  storage-postgres:
+
+networks:
+  iroha-net:
+    # external:
+      name: iroha-net
