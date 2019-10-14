@@ -2,7 +2,14 @@
 
 
 ### Introduction
-What is Iroha, why it is there, how does it stand out of the crowd and why do we care at all
+What is Iroha, why it is there, how does it stand out of the crowd and why do we care at all.
+Iroha is a permissioned blockchain written in C++. It is fast and simple, and yet lets you do a lot of things.
+There are already a number of production systems built on top of Iroha, and there are even more to come soon.
+The most notable advantage (based on the feedback from community) is the ease of deployment.
+
+In Iroha we generally favor performance over other things. This explains some design choices made in the beginning (like only having a CFT consensus and not having a full-blown Turing-complete virtual machine). However, these things are going to change. Most recent improvement - integration of Hyperledger Ursa cryto library.
+
+The network TPS depends a lot on the use case; some partners report TPS at around 4,000
 
 
 ### Main architectural aspects
